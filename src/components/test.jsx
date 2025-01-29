@@ -17,99 +17,6 @@ import {
     CircularProgress,
 } from "@mui/material";
 import ResultModal from "./modal";
-// import {
-//     borderRadius,
-//     display,
-//     fontFamily,
-//     fontSize,
-//     fontWeight,
-// } from "@mui/system";
-
-const testData = {
-    _id: "test123",
-    questions: [
-        {
-            question: "Which programming languages do you know?",
-            multiple: true,
-            options: ["JavaScript", "Python", "Java", "C++"],
-        },
-        {
-            question: "What is the capital of France?",
-            multiple: false,
-            options: ["Paris", "London", "Berlin", "Rome"],
-        },
-        {
-            question: "Which programming languages do you know?",
-            multiple: true,
-            options: ["JavaScript", "Python", "Java", "C++"],
-        },
-        {
-            question: "What is the capital of France?",
-            multiple: false,
-            options: ["Paris", "London", "Berlin", "Rome"],
-        },
-        {
-            question: "Which programming languages do you know?",
-            multiple: true,
-            options: ["JavaScript", "Python", "Java", "C++"],
-        },
-        {
-            question: "What is the capital of France?",
-            multiple: false,
-            options: ["Paris", "London", "Berlin", "Rome"],
-        },
-        {
-            question: "Which programming languages do you know?",
-            multiple: true,
-            options: ["JavaScript", "Python", "Java", "C++"],
-        },
-        {
-            question: "What is the capital of France?",
-            multiple: false,
-            options: ["Paris", "London", "Berlin", "Rome"],
-        },
-        {
-            question: "Which programming languages do you know?",
-            multiple: true,
-            options: ["JavaScript", "Python", "Java", "C++"],
-        },
-        {
-            question: "What is the capital of France?",
-            multiple: false,
-            options: ["Paris", "London", "Berlin", "Rome"],
-        },
-        {
-            question: "Which programming languages do you know?",
-            multiple: true,
-            options: ["JavaScript", "Python", "Java", "C++"],
-        },
-        {
-            question: "What is the capital of France?",
-            multiple: false,
-            options: ["Paris", "London", "Berlin", "Rome"],
-        },
-        {
-            question: "Which programming languages do you know?",
-            multiple: true,
-            options: ["JavaScript", "Python", "Java", "C++"],
-        },
-        {
-            question: "What is the capital of France?",
-            multiple: false,
-            options: ["Paris", "London", "Berlin", "Rome"],
-        },
-        {
-            question: "Which programming languages do you know?",
-            multiple: true,
-            options: ["JavaScript", "Python", "Java", "C++"],
-        },
-        {
-            question: "What is the capital of France?",
-            multiple: false,
-            options: ["Paris", "London", "Berlin", "Rome"],
-        },
-    ],
-};
 
 const TestComponent = () => {
     const [answers, setAnswers] = useState({});
@@ -125,7 +32,9 @@ const TestComponent = () => {
             .catch((error) => console.error("Xatolik yuz berdi:", error));
     };
     useEffect(() => {
+        setLoading(true)
         onGetTest();
+        setLoading(false)
     }, []);
 
     const handleChange = (questionIndex, optionIndex, multiple, questionId) => {
@@ -299,102 +208,7 @@ const TestComponent = () => {
                         <Typography variant="h5" gutterBottom>
                             Test Questions
                         </Typography>
-                        {/* <form>
-                        {data?.questions.map((q, index) => (
-                            <FormControl
-                                component="fieldset"
-                                key={index}
-                                style={{ marginBottom: "15px", width: "100%" }}
-                                id={index}
-                            >
-                                <Typography variant="h6">
-                                    {index + 1}. {q.question}
-                                </Typography>
-                                {q.multiple ? (
-                                    q.options.map((option, idx) => (
-                                        <FormControlLabel
-                                            key={idx}
-                                            // required={true}
-                                            control={
-                                                <Checkbox
-                                                    // checked={
-                                                    //     answers[
-                                                    //         index
-                                                    //     ]?.includes(option) ||
-                                                    //     false
-                                                    // }
-                                                    checked={
-                                                        answers[
-                                                            index
-                                                        ]?.option.includes(
-                                                            idx
-                                                        ) || false
-                                                    }
-                                                    // onChange={() =>
-                                                    //     handleChange(
-                                                    //         index,
-                                                    //         option,
-                                                    //         q.multiple,
-                                                    //         q.id
-                                                    //     )
-                                                    // }
-                                                    onChange={() =>
-                                                        handleChange(
-                                                            index,
-                                                            idx,
-                                                            q.multiple,
-                                                            q.id
-                                                        )
-                                                    }
-                                                />
-                                            }
-                                            label={option}
-                                        />
-                                    ))
-                                ) : (
-                                    <RadioGroup
-                                        // value={answers[index]?.[0] || ""}
-                                        value={answers[index]?.option[0] || ""}
-                                        // required={true}
-                                        // onChange={(e) =>
-                                        //     handleChange(
-                                        //         index,
-                                        //         e.target.value,
-                                        //         q.multiple,
-                                        //         q.id
-                                        //     )
-                                        // }
-                                        onChange={(e) =>
-                                            handleChange(
-                                                index,
-                                                Number(e.target.value),
-                                                q.multiple,
-                                                q.id
-                                            )
-                                        }
-                                    >
-                                        {q.options.map((option, idx) => (
-                                            <FormControlLabel
-                                                key={idx}
-                                                value={option}
-                                                control={<Radio />}
-                                                label={option}
-                                            />
-                                        ))}
-                                    </RadioGroup>
-                                )}
-                            </FormControl>
-                        ))}
-                        <button
-                            // variant="contained"
-                            // color="primary"
-                            // type={'submit'}
-                            onClick={handleSubmit}
-                            // type="submit"
-                        >
-                            Submit
-                        </button>
-                    </form> */}
+
                         <form>
                             {data?.questions.map((q, index) => (
                                 <FormControl
