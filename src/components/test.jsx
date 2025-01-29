@@ -8,11 +8,8 @@ import {
     Radio,
     Checkbox,
     Button,
-    Paper,
-    Grid,
     Box,
     Stack,
-    FormHelperText,
     Backdrop,
     CircularProgress,
 } from "@mui/material";
@@ -64,7 +61,17 @@ const TestComponent = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(answers);
+
+        // ❗ Barcha savollarga javob berilganligini tekshiramiz
+        const unansweredQuestions = data?.questions.filter(
+            (_, index) => !answers[index]
+        );
+
+        if (unansweredQuestions.length > 0) {
+            alert("Iltimos, barcha savollarga javob bering!");
+            return; // ❌ Submit bo‘lmaydi
+        }
+
         const formattedAnswers = {
             id: data?.id,
             answers: Object.values(answers),
@@ -77,12 +84,11 @@ const TestComponent = () => {
             const response = await fetch(
                 "https://online-test-bg1l.onrender.com/api/test/check-answers",
                 {
-                    // API URL ni o‘zgartiring
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
                     },
-                    body: JSON.stringify(formattedAnswers), // JSON formatga o'tkazib yuboramiz
+                    body: JSON.stringify(formattedAnswers),
                 }
             );
 
@@ -91,10 +97,8 @@ const TestComponent = () => {
 
             if (response.ok) {
                 setResult(resultTest);
-                // alert("Javoblaringiz muvaffaqiyatli yuborildi!");
-                // setOpen(true)
             } else {
-                alert("Xatolik yuz berdi: " + result.message);
+                alert("Xatolik yuz berdi: " + resultTest.message);
             }
         } catch (error) {
             console.error("Yuborishda xatolik:", error);
@@ -103,6 +107,7 @@ const TestComponent = () => {
             setLoading(false);
         }
     };
+
 
     const handleQuestionChange = (index) => {
         setCurrentQuestion(index);
@@ -215,7 +220,7 @@ const TestComponent = () => {
                                     component="fieldset"
                                     key={q.id}
                                     style={{
-                                        marginBottom: "15px",
+                                        paddingTop: 18,
                                         width: "100%",
                                     }}
                                     id={q.id}
@@ -278,7 +283,15 @@ const TestComponent = () => {
                                 </FormControl>
                             ))}
 
-                            <Button variant="contained" onClick={handleSubmit}>
+                         
+                            <Button
+                                variant="contained"
+                                onClick={handleSubmit}
+                                sx={{mt:3}}
+                                disabled={data?.questions.some(
+                                    (_, index) => !answers[index]
+                                )}
+                            >
                                 Submit
                             </Button>
                         </form>
